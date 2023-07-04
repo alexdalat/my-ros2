@@ -1,3 +1,5 @@
+# Use the official ROS Iron image as the base image
+# gets dynamically added above by run_docker.sh
 
 ARG ROS_DISTRO=iron
 
