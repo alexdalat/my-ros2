@@ -1,8 +1,11 @@
 # Use the official ROS Iron image as the base image
+
 # for arm64v8 architecture (M1 Mac, etc), use:
 FROM arm64v8/ros:iron
+
 # for other, use:
 # FROM osrf/ros:iron-desktop
+
 
 ARG ROS_DISTRO=iron
 
@@ -23,8 +26,11 @@ WORKDIR /ros2
 COPY ./src ./src
 
 # Build the workspace, install the package
-RUN /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && colcon build && source install/setup.bash"
+RUN /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash"
+#	&& colcon build --symlink-install \
+#	&& source install/setup.bash"
 
 # Source the ROS environment and your workspace in every new shell
-RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc && \
-    echo "source /ros2/install/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+#	echo "colcon build --symlink-install" >> ~/.bashrc && \
+#    echo "source /ros2/install/setup.bash" >> ~/.bashrc
