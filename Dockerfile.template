@@ -1,4 +1,3 @@
-FROM arm64v8/ros:iron
 # Use the official ROS Iron image as the base image
 # gets dynamically added above by run_docker.sh
 
