@@ -47,7 +47,9 @@ if [ $(docker ps -a -q -f name=$CONTAINER_NAME) ]; then
 
     echo -e "${GREEN}Connecting to the container...${NC}"
     docker exec -it $CONTAINER_NAME bash
+
 else
+
     # If the container does not exist, build the image and run the container
     echo -e "${GREEN}Building the Docker image for ${architecture} architecture...${NC}"
 
@@ -60,10 +62,13 @@ else
 	else
 		echo "FROM osrf/ros:iron-desktop" > Dockerfile
 	fi
+
+	# create a temporary Dockerfile that includes Dockerfile.template
 	cat Dockerfile.template >> Dockerfile
 
 	# build the image
     docker build --build-arg ARCH=${arch} -t ros2:latest .
+    rm -f Dockerfile
 
     echo -e "${GREEN}Connecting to the container...${NC}"
     docker run --network ros-net -it -v $(pwd)/src:/ros2/src --name $CONTAINER_NAME ros2:latest

@@ -8,10 +8,15 @@ RUN apt-get update && apt-get install -y \
 	tmux \
     build-essential \
     cmake \
+    neovim \
 	ros-$ROS_DISTRO-demo-nodes-py \
 	ros-$ROS_DISTRO-demo-nodes-cpp \
     python3-colcon-common-extensions \
     && rm -rf /var/lib/apt/lists/*
+
+
+# add force-color-prompt=yes to top of .bashrc
+RUN sed -i '1s/^/force_color_prompt=yes\n/' ~/.bashrc
 
 # Set the working directory inside the container
 WORKDIR /ros2
